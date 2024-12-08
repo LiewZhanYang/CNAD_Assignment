@@ -9,30 +9,28 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func ConnectDatabase() *sql.DB {
-	// Get environment variables for database credentials
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASS")
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
+// ConnectDatabase connects to the database with a specified name
+func ConnectDatabase(dbName string) *sql.DB {
+	username := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	
 
-	// Create the DSN (Data Source Name)
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
-		dbUser, dbPass, dbHost, dbPort, dbName,
-	)
+	// Construct DSN (Data Source Name)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", username, password, host, port, dbName)
 
-	// Open a connection to the database
+	// Open database connection
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		log.Fatal("Failed to connect to the database:", err)
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	// Test the connection
+	// Test the database connection
 	if err := db.Ping(); err != nil {
-		log.Fatal("Failed to ping the database:", err)
+		log.Fatalf("Failed to ping database: %v", err)
 	}
 
-	log.Println("Connected to the database successfully!")
+	log.Println("Connected to database:", dbName)
 	return db
 }

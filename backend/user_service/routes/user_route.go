@@ -2,6 +2,7 @@ package routes
 
 import (
 	"CNAD_Assignment/backend/user_service/controllers"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,9 +11,10 @@ func SetupUserRoutes(router *gin.Engine, userControllers *controllers.UserContro
 	// Group user-related routes under /users
 	userRoutes := router.Group("/users")
 	{
-		userRoutes.POST("/register", userControllers.RegisterUser)
-		userRoutes.POST("/login", userControllers.LoginUser)
-		userRoutes.GET("/:id", userControllers.GetUserDetails)
-		userRoutes.PUT("/:id", userControllers.UpdateUserProfile)
+		userRoutes.POST("/signup", userControllers.RegisterUser)         // For user signup
+		userRoutes.POST("/signin", userControllers.LoginUser)            // For user login
+		userRoutes.GET("/", userControllers.GetAllUsers)                 // To get all users
+		userRoutes.GET("/:id", userControllers.GetUserDetails)           // To get user by ID
+		userRoutes.PUT("/profile/:id", userControllers.UpdateUserProfile) // To update user profile
 	}
 }
