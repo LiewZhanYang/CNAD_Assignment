@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="signin.css" />
+    <script defer src="signin.js"></script>
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .container {
+        display: flex;
+        height: 100%;
+      }
+      .left-half {
+        flex: 1;
+        background: url("../img/th.jpeg") no-repeat center center;
+        background-size: cover;
+      }
+      .right-half {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f5f5f5;
+      }
+      .login-wrap {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-half"></div>
+      <div class="right-half">
+        <div class="login-wrap">
+          <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked />
+            <label for="tab-1" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up" />
+            <label for="tab-2" class="tab">Sign Up</label>
+            <div class="login-form">
+              <div class="sign-in-htm">
+                <div class="group">
+                  <label for="sign-in-user" class="label">Email</label>
+                  <input id="sign-in-user" type="text" class="input" />
+                </div>
+                <div class="group">
+                  <label for="sign-in-pass" class="label">Password</label>
+                  <input
+                    id="sign-in-pass"
+                    type="password"
+                    class="input"
+                    data-type="password"
+                  />
+                </div>
+                <div class="group">
+                  <input id="check" type="checkbox" class="check" checked />
+                  <label for="check"
+                    ><span class="icon"></span> Keep me Signed in</label
+                  >
+                </div>
+                <div class="group">
+                  <button type="button" class="button" id="sign-in-button">
+                    Sign In
+                  </button>
+                </div>
+                <div class="hr"></div>
+                <div class="foot-lnk"></div>
+              </div>
+              <div class="sign-up-htm">
+                <div class="group">
+                  <label for="sign-up-user" class="label">Username</label>
+                  <input id="sign-up-user" type="text" class="input" />
+                </div>
+                <div class="group">
+                  <label for="sign-up-pass" class="label">Password</label>
+                  <input
+                    id="sign-up-pass"
+                    type="password"
+                    class="input"
+                    data-type="password"
+                  />
+                </div>
+                <div class="group">
+                  <label for="sign-up-repeat-pass" class="label"
+                    >Repeat Password</label
+                  >
+                  <input
+                    id="sign-up-repeat-pass"
+                    type="password"
+                    class="input"
+                    data-type="password"
+                  />
+                </div>
+                <div class="group">
+                  <label for="sign-up-email" class="label">Email Address</label>
+                  <input id="sign-up-email" type="text" class="input" />
+                </div>
+                <div class="group">
+                  <button type="button" class="button" id="sign-up-button">
+                    Sign Up
+                  </button>
+                </div>
+                <div class="hr"></div>
+                <div class="foot-lnk">
+                  <label for="tab-1">Already Member?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
