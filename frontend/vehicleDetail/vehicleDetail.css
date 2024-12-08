@@ -1,0 +1,173 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.menu-icons a {
+  text-decoration: none;
+  color: inherit;
+  margin-left: 20px;
+}
+
+.menu-icons a:hover {
+  color: #007bff; /* Change icon color on hover */
+}
+
+/* Navigation Bar */
+.nav-bar {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-bar .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-bar .menu-icons i {
+  margin-left: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.vehicle-details {
+  display: flex;
+  gap: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-images {
+  width: 50%;
+}
+
+.vehicle-images img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.image-gallery {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.image-gallery img {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.vehicle-info {
+  width: 50%;
+}
+
+.vehicle-info h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.vehicle-info p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.vehicle-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.vehicle-specs div {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.vehicle-price {
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.rent-now-btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.reviews {
+  margin-top: 30px;
+}
+
+.reviews h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.review {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.review-content {
+  flex-grow: 1;
+}
+
+.review-content h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.review-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.review-content .review-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.review-stars {
+  color: #ffd700;
+  font-size: 14px;
+}

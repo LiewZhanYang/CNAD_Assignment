@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View All Vehicles</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="viewAll.css" />
+  </head>
+  <body>
+    <div class="nav-bar">
+      <a href="home.html" class="logo"
+        ><i class="fas fa-car"></i> MyCarRental</a
+      >
+      <div class="menu-icons">
+        <a href="userdashboard.html"><i class="fas fa-user"></i></a>
+        <a href="notificationHistory.html" title="Notifications"
+          ><i class="fas fa-bell"></i
+        ></a>
+        <a href="viewAllPage.html" title="List View"
+          ><i class="fas fa-list"></i
+        ></a>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Sidebar Filters -->
+      <div class="filters">
+        <h3>Filter Vehicles</h3>
+
+        <!-- Vehicle Type -->
+        <h4>Type</h4>
+        <label
+          ><input type="checkbox" value="MPV" onchange="filterVehicles()" />
+          MPV</label
+        >
+        <label
+          ><input type="checkbox" value="Sedan" onchange="filterVehicles()" />
+          Sedan</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            value="Hatchback"
+            onchange="filterVehicles()"
+          />
+          Hatchback</label
+        >
+
+        <!-- Location -->
+        <h4>Location</h4>
+        <label
+          ><input type="checkbox" value="West" onchange="filterVehicles()" />
+          West</label
+        >
+        <label
+          ><input type="checkbox" value="East" onchange="filterVehicles()" />
+          East</label
+        >
+        <label
+          ><input type="checkbox" value="North" onchange="filterVehicles()" />
+          North</label
+        >
+        <label
+          ><input type="checkbox" value="South" onchange="filterVehicles()" />
+          South</label
+        >
+
+        <!-- Price Range -->
+        <h4>Price</h4>
+        <div class="price-range">
+          <label for="price">Max Price: <span id="max-price">$100</span></label>
+          <input
+            type="range"
+            id="price"
+            min="50"
+            max="200"
+            value="100"
+            onchange="updatePrice()"
+          />
+        </div>
+      </div>
+
+      <!-- Vehicle Listings -->
+      <div class="vehicle-list" id="vehicle-list">
+        <!-- Vehicles will be dynamically loaded here -->
+      </div>
+    </div>
+    <script src="viewAll.js" defer></script>
+  </body>
+</html>

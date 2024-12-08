@@ -21,10 +21,8 @@ document
 
       if (response.ok) {
         const data = await response.json();
+        localStorage.setItem("token", data.token); // Save JWT in localStorage
         alert("Login successful!");
-
-        // Save token to localStorage (optional)
-        localStorage.setItem("authToken", data.token);
 
         // Redirect to home.html
         window.location.href = "../home.html"; // Adjust the path if necessary

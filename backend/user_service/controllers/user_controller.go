@@ -53,64 +53,84 @@ func (uc *UserControllers) RegisterUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "User registered successfully", "token": token})
 }
 
-// LoginUser handles user login
+// LoginUser handles user login and JWT creation
 func (uc *UserControllers) LoginUser(c *gin.Context) {
-	var input struct {
-		Email    string `json:"email" binding:"required,email"`
-		Password string `json:"password" binding:"required"`
-	}
+    var input struct {
+        Email    string `json:"email" binding:"required,email"`
+        Password string `json:"password" binding:"required"`
+    }
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+    if err := c.ShouldBindJSON(&input); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
 
-	var user struct {
-		ID       int
-		Email    string
-		Password string
-	}
+    var user struct {
+        ID          int
+        Name        string
+        Email       string
+        PhoneNumber string
+        Membership  string
+        Password    string
+    }
 
-	query := "SELECT id, email, password FROM user WHERE email = ?"
-	err := uc.DB.QueryRow(query, input.Email).Scan(&user.ID, &user.Email, &user.Password)
-	if err != nil || user.Password != input.Password {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
-		return
-	}
+    query := "SELECT id, name, email, phoneNum, membership, password FROM user WHERE email = ?"
+    err := uc.DB.QueryRow(query, input.Email).Scan(
+        &user.ID, &user.Name, &user.Email, &user.PhoneNumber, &user.Membership, &user.Password,
+    )
+    if err != nil || user.Password != input.Password {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
+        return
+    }
 
-	// Generate JWT token
-	token, err := generateJWT(user.ID, user.Email)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
-		return
-	}
+    // Generate JWT token
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+        "id":          user.ID,
+        "name":        user.Name,
+        "email":       user.Email,
+        "phone_number": user.PhoneNumber,
+        "membership":  user.Membership,
+        "exp":         time.Now().Add(24 * time.Hour).Unix(), // Token expiry
+    })
 
-	c.JSON(http.StatusOK, gin.H{"message": "Login successful", "token": token})
+    tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{
+        "token": tokenString,
+    })
 }
 
-// UpdateUserProfile handles user profile updates
+
 func (uc *UserControllers) UpdateUserProfile(c *gin.Context) {
 	userID := c.Param("id")
+
+	// Define the input structure
 	var input struct {
 		Name     string `json:"name" binding:"required"`
 		Email    string `json:"email" binding:"required,email"`
-		Password string `json:"password" binding:"required"`
-		PhoneNum string `json:"phoneNum" binding:"required"`
+		PhoneNum string `json:"phone_number" binding:"required"` // Map "phone_number" JSON field to "PhoneNum" struct field
 	}
 
+	// Validate the request body
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	query := "UPDATE user SET name = ?, email = ?, password = ?, phoneNum = ? WHERE id = ?"
-	_, err := uc.DB.Exec(query, input.Name, input.Email, input.Password, input.PhoneNum, userID)
+	// Update query
+	query := "UPDATE user SET name = ?, email = ?, phoneNum = ? WHERE id = ?"
+	_, err := uc.DB.Exec(query, input.Name, input.Email, input.PhoneNum, userID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update user profile"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update profile"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User profile updated successfully"})
+	// Respond with a success message
+	c.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully"})
 }
 
 // GetAllUsers fetches all users
