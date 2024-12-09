@@ -91,7 +91,7 @@ Follow these steps to set up and run the microservices:
 ### 2. Loading the Microservices from GitHub
 - Clone the project repository:
   ```bash
-  git clone https://github.com/your-repo/microservices-project.git
+  git clone [https://github.com/your-repo/microservices-project.git](https://github.com/LiewZhanYang/CNAD_Assignment.git)
   cd microservices-project
   ```
 - Navigate to each microservice directory:
@@ -142,6 +142,249 @@ Follow these steps to set up and run the microservices:
 - Ensure that all services are running before interacting with the frontend.
 - Check `.env` files for configuration and update as required.
 - For troubleshooting:
+
+Here is the detailed test data and routes for each function to help a person test each endpoint using Postman or any other HTTP client.
+
+---
+
+### **User Service**
+1. **Get All Users**
+   - **Route**: `GET http://localhost:8080/users`
+   - **Description**: Retrieves a list of all users.
+   - **Expected Response**:
+     ```json
+     [
+       {
+         "id": 1,
+         "name": "John Doe",
+         "email": "johndoe@example.com"
+       },
+       {
+         "id": 2,
+         "name": "Jane Smith",
+         "email": "janesmith@example.com"
+       }
+     ]
+     ```
+
+2. **Get User by ID**
+   - **Route**: `GET http://localhost:8080/users/1`
+   - **Description**: Retrieves details of the user with ID 1.
+   - **Expected Response**:
+     ```json
+     {
+       "id": 1,
+       "name": "John Doe",
+       "email": "johndoe@example.com",
+       "phone_number": "1234567890"
+     }
+     ```
+
+3. **Register User**
+   - **Route**: `POST http://localhost:8080/users/signup`
+   - **Body**:
+     ```json
+     {
+       "name": "Alice Johnson",
+       "email": "alice@example.com",
+       "password": "securepassword123"
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "message": "User registered successfully."
+     }
+     ```
+
+4. **Login User**
+   - **Route**: `POST http://localhost:8080/users/signin`
+   - **Body**:
+     ```json
+     {
+       "email": "alice@example.com",
+       "password": "securepassword123"
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+     }
+     ```
+
+5. **Update User Profile**
+   - **Route**: `PUT http://localhost:8080/users/profile/1`
+   - **Body**:
+     ```json
+     {
+       "name": "Alice Updated",
+       "email": "aliceupdated@example.com",
+       "phone_number": "9876543210"
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "message": "Profile updated successfully."
+     }
+     ```
+
+---
+
+### **Vehicle Service**
+1. **Get All Vehicles**
+   - **Route**: `GET http://localhost:8081/vehicles`
+   - **Description**: Retrieves a list of all vehicles.
+   - **Expected Response**:
+     ```json
+     [
+       {
+         "id": 1,
+         "brand": "Toyota",
+         "model": "Corolla",
+         "price": 50.0,
+         "location": "West"
+       },
+       {
+         "id": 2,
+         "brand": "Nissan",
+         "model": "GT-R",
+         "price": 80.0,
+         "location": "East"
+       }
+     ]
+     ```
+
+2. **Get Vehicle by ID**
+   - **Route**: `GET http://localhost:8081/vehicles/1`
+   - **Description**: Retrieves details of the vehicle with ID 1.
+   - **Expected Response**:
+     ```json
+     {
+       "id": 1,
+       "brand": "Toyota",
+       "model": "Corolla",
+       "price": 50.0,
+       "location": "West",
+       "capacity": 4
+     }
+     ```
+
+---
+
+### **Booking Service**
+1. **Create Booking**
+   - **Route**: `POST http://localhost:8082/payments/bookings`
+   - **Body**:
+     ```json
+     {
+       "user_id": 1,
+       "address": "123 Main St, Singapore",
+       "pickUpLocation": "West",
+       "pickUpDate": "2024-12-15",
+       "pickUpTime": "10:00",
+       "dropOffLocation": "East",
+       "dropOffDate": "2024-12-20",
+       "dropOffTime": "16:00",
+       "creditCardNumber": "4111111111111111",
+       "vehicle_id": 1
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "message": "Booking created successfully.",
+       "booking_id": 1
+     }
+     ```
+
+2. **Modify Booking**
+   - **Route**: `PUT http://localhost:8082/payments/bookings/1`
+   - **Body**:
+     ```json
+     {
+       "address": "456 Another St, Singapore",
+       "pickUpLocation": "North",
+       "pickUpDate": "2024-12-16",
+       "pickUpTime": "09:00",
+       "dropOffLocation": "South",
+       "dropOffDate": "2024-12-22",
+       "dropOffTime": "15:00",
+       "creditCardNumber": "5555555555554444",
+       "vehicle_id": 2
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "message": "Booking updated successfully."
+     }
+     ```
+
+3. **Get Booking by ID**
+   - **Route**: `GET http://localhost:8082/payments/bookings/1`
+   - **Description**: Retrieves booking details with ID 1.
+   - **Expected Response**:
+     ```json
+     {
+       "id": 1,
+       "user_id": 1,
+       "address": "123 Main St, Singapore",
+       "pickUpLocation": "West",
+       "pickUpDate": "2024-12-15",
+       "dropOffLocation": "East",
+       "dropOffDate": "2024-12-20",
+       "amount": 250.0
+     }
+     ```
+
+4. **Delete Booking**
+   - **Route**: `DELETE http://localhost:8082/payments/bookings/1`
+   - **Description**: Deletes booking with ID 1.
+   - **Expected Response**:
+     ```json
+     {
+       "message": "Booking deleted successfully."
+     }
+     ```
+
+---
+
+### **Invoice Service**
+1. **Generate and Send Invoice**
+   - **Route**: `POST http://localhost:8082/invoices/generate`
+   - **Body**:
+     ```json
+     {
+       "booking_id": 1,
+       "user_id": 1,
+       "amount": 250.0,
+       "status": "Paid"
+     }
+     ```
+   - **Expected Response**:
+     ```json
+     {
+       "message": "Invoice generated and sent successfully.",
+       "invoice": {
+         "id": 1,
+         "booking_id": 1,
+         "user_id": 1,
+         "amount": 250.0,
+         "status": "Paid",
+         "invoice_date": "2024-12-15T10:00:00Z"
+       }
+     }
+     ```
+
+---
+
+### Instructions:
+- Test each endpoint by copying the **Route** into Postman.
+- Use the provided **Body** data for `POST` and `PUT` requests.
+- Verify the **Expected Response** matches the actual response.
+- Ensure the services are running and the database is populated with the required data.
   - Check service logs for errors.
   - Verify database connections and configurations.
 
