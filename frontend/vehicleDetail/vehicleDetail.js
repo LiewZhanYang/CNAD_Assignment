@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "vehicle-name"
       ).textContent = `${vehicle.brand} ${vehicle.model}`;
       document.getElementById("vehicle-description").textContent =
-        vehicle.description || "No description available.";
+        vehicle.description || "Description";
       document.getElementById(
         "vehicle-price"
       ).textContent = `$${vehicle.price}/day`;

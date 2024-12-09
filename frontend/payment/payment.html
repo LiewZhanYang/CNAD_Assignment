@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="payment.css" />
+  </head>
+  <body>
+    <div class="nav-bar">
+      <div class="logo"><i class="fas fa-car"></i> MyCarRental</div>
+      <div class="menu-icons">
+        <a href="../profile/userdashboard.html"><i class="fas fa-user"></i></a>
+        <a
+          href="../notifications/noticifationHistory.html"
+          title="Notifications"
+          ><i class="fas fa-bell"></i
+        ></a>
+        <a href="../view_all_vehicle/viewAll.html" title="List View"
+          ><i class="fas fa-list"></i
+        ></a>
+      </div>
+    </div>
+    <div class="container">
+      <h1>Payment Page</h1>
+      <!-- Billing and Rental Info Section -->
+      <div class="form-section">
+        <!-- Billing Info -->
+        <div class="form-group">
+          <h3>Billing Info</h3>
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your Name" />
+          <label for="phone">Email</label>
+          <input type="text" id="phone" placeholder="Email" />
+          <label for="address">Address</label>
+          <input type="text" id="address" placeholder="Address" />
+        </div>
+
+        <!-- Rental Summary -->
+        <div class="summary">
+          <h3>Rental Summary</h3>
+          <img src="https://via.placeholder.com/300x150" alt="Car" />
+          <p><strong id="car-name">Car Name</strong></p>
+          <p id="car-type">Type: Sport</p>
+          <p id="car-capacity">Capacity: 2 People</p>
+          <p id="car-subtotal">Subtotal: $80.00/day</p>
+          <p id="car-tax">Tax: $0.00</p>
+          <div id="car-total" class="total">Total: $80.00</div>
+        </div>
+      </div>
+
+      <!-- Rental and Payment Info Section -->
+      <div class="form-section">
+        <div class="form-group">
+          <h3>Rental Info</h3>
+          <label for="pickup-location">Pick-Up Location</label>
+          <select id="pickup-location">
+            <option value="" disabled selected>Select your city</option>
+            <option value="west">West</option>
+            <option value="east">East</option>
+            <option value="north">North</option>
+            <option value="south">South</option>
+          </select>
+          <label for="pickup-date">Pick-Up Date</label>
+          <input type="date" id="pickup-date" />
+          <label for="pickup-time">Pick-Up Time</label>
+          <input type="time" id="pickup-time" />
+          <label for="dropoff-location">Drop-Off Location</label>
+          <select id="dropoff-location">
+            <option value="" disabled selected>Select your city</option>
+            <option value="west">West</option>
+            <option value="east">East</option>
+            <option value="north">North</option>
+            <option value="south">South</option>
+          </select>
+          <label for="dropoff-date">Drop-Off Date</label>
+          <input type="date" id="dropoff-date" />
+          <label for="dropoff-time">Drop-Off Time</label>
+          <input type="time" id="dropoff-time" />
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-group">
+          <h3>Payment Method</h3>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="payment-method"
+                value="credit-card"
+                checked
+              />
+              Credit Card</label
+            >
+          </div>
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="Card Number" />
+          <label for="expiration-date">Expiration Date</label>
+          <input type="text" id="expiration-date" placeholder="MM/YY" />
+          <label for="cvc">CVC</label>
+          <input type="text" id="cvc" placeholder="CVC" />
+        </div>
+      </div>
+
+      <!-- Confirmation Section -->
+      <div class="confirmation">
+        <h3>Confirmation</h3>
+        <label
+          ><input type="checkbox" /> I agree to receive marketing and newsletter
+          emails.</label
+        >
+        <label
+          ><input type="checkbox" required /> I agree with the terms and
+          conditions.</label
+        >
+        <a href="#" class="rent-now-btn" id="rent-now-btn">Rent Now</a>
+      </div>
+    </div>
+    <script src="payment.js"></script>
+  </body>
+</html>
