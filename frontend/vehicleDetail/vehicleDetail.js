@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
       // Rent Now button action
-      const rentNowBtn = document.getElementById("rent-now-btn");
-      rentNowBtn.href = `rentNow.html?id=${vehicleId}`;
+      document.getElementById("rent-now-btn").addEventListener("click", () => {
+        window.location.href = `../payment/payment.html?id=${vehicleId}&price=${vehicle.price}`;
+      });
     })
     .catch((error) => {
       console.error(error);

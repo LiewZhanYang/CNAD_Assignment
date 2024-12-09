@@ -14,5 +14,7 @@ func SetupPaymentRoutes(router *gin.Engine, pc *controllers.PaymentController) {
 		payment.POST("/bookings", pc.PostBooking)            // Create a booking
 		payment.PUT("/bookings/:id", pc.PutBooking)          // Update a booking
 		payment.DELETE("/bookings/:id", pc.CancelBooking)    // Cancel a booking
+		payment.GET("/billing/:id", pc.GetBillingById) // Get billing by ID
+        payment.POST("/billing", pc.PostBilling)      // Create a billing record
 	}
 }

@@ -31,9 +31,17 @@ fetch("http://localhost:8081/vehicles/")
           } People</span>
         </div>
         <div class="price">$${vehicle.price.toFixed(2)}/day</div>
-        <button>Rent Now</button>
+        <button class="rent-now-btn" data-id="${vehicle.id}">Rent Now</button>
       `;
       carListElement.appendChild(carCard);
+    });
+    // Attach event listeners to the "Rent Now" buttons
+    document.querySelectorAll(".rent-now-btn").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const vehicleId = event.target.getAttribute("data-id");
+        // Redirect to vehicle details page with the selected vehicle ID as a query parameter
+        window.location.href = `../vehicleDetail/vehicleDetail.html?id=${vehicleId}`;
+      });
     });
   })
   .catch((error) => {

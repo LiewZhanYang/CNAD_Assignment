@@ -25,6 +25,7 @@ func main() {
 
 	// Initialize controller
 	paymentController := &controllers.PaymentController{DB: db}
+	invoiceController := &controllers.InvoiceController{DB: db}
 
 	// Initialize Gin router
 	router := gin.Default()
@@ -40,6 +41,7 @@ func main() {
 
 	// Setup routes
 	routes.SetupPaymentRoutes(router, paymentController)
+	routes.SetupInvoiceRoutes(router, invoiceController)
 
 	// Start server
 	log.Println("Payment Service is running on http://localhost:8082")

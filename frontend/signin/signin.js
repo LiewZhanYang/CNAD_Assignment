@@ -25,7 +25,7 @@ document
         alert("Login successful!");
 
         // Redirect to home.html
-        window.location.href = "../home.html"; // Adjust the path if necessary
+        window.location.href = "../home/home.html"; // Adjust the path if necessary
       } else {
         const errorData = await response.json();
         alert(`Login failed: ${errorData.error}`);

@@ -164,3 +164,77 @@ func (pc *PaymentController) GetBookingByUserId(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"bookings": bookings})
 }
+
+
+// GetBillingById fetches a billing record by its ID
+func (pc *PaymentController) GetBillingById(c *gin.Context) {
+    id := c.Param("id")
+
+    var billing struct {
+        ID        int     `json:"id"`
+        BookingID int     `json:"booking_id"`
+        Amount    float64 `json:"amount"`
+        Status    string  `json:"status"`
+    }
+
+    err := pc.DB.QueryRow(`
+        SELECT id, booking_id, amount, status FROM billing WHERE id = ?`, id,
+    ).Scan(
+        &billing.ID, &billing.BookingID, &billing.Amount, &billing.Status,
+    )
+
+    if err != nil {
+        if err == sql.ErrNoRows {
+            c.JSON(http.StatusNotFound, gin.H{"error": "Billing record not found"})
+        } else {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch billing record"})
+        }
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"billing": billing})
+}
+
+// PostBilling creates a new billing record
+func (pc *PaymentController) PostBilling(c *gin.Context) {
+    var billing struct {
+        BookingID int     `json:"booking_id" binding:"required"`
+        Amount    float64 `json:"amount" binding:"required"`
+        Status    string  `json:"status"`
+    }
+
+    if err := c.ShouldBindJSON(&billing); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{
+            "error": "Invalid request data",
+            "details": err.Error(),
+        })
+        return
+    }
+
+    // Ensure the booking exists before creating the billing
+    var bookingExists bool
+    err := pc.DB.QueryRow("SELECT EXISTS(SELECT 1 FROM booking WHERE id = ?)", billing.BookingID).Scan(&bookingExists)
+    if err != nil || !bookingExists {
+        c.JSON(http.StatusBadRequest, gin.H{
+            "error": "Invalid booking ID",
+        })
+        return
+    }
+
+    query := `
+        INSERT INTO billing (booking_id, amount, status)
+        VALUES (?, ?, ?)
+    `
+    _, err = pc.DB.Exec(query, billing.BookingID, billing.Amount, billing.Status)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{
+            "error": "Failed to create billing record",
+            "details": err.Error(),
+        })
+        return
+    }
+
+    c.JSON(http.StatusCreated, gin.H{
+        "message": "Billing record created successfully",
+    })
+}
